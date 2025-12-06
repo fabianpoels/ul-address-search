@@ -1,0 +1,14 @@
+{
+  "name": "ul-address-search",
+  "packageManager": "yarn@4.12.0",
+  "workspaces": [
+    "api",
+    "frontend"
+  ],
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "prettier": "^3.7.3",
+    "typescript": "^5.9.3"
+  }
+}
