@@ -10,6 +10,4 @@ interface Address {
   typeCode: number
 }
 
-// TODO: move in shared folder for frontend usage?
-
 export type { Address }
