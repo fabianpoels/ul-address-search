@@ -19,6 +19,7 @@
     "tsx": "^4.21.0"
   },
   "scripts": {
-    "dev": "nodemon --exec tsx server.ts"
+    "dev": "nodemon --exec tsx server.ts",
+    "dev:debug": "nodemon --exec tsx --inspect server.ts"
   }
 }
