@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { addressTrie } from '../data/addressTrie'
+import { config } from '../config/applicationConfig'
 
 const search = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.params.query || req.params.query.length < 3) {
@@ -11,7 +12,7 @@ const search = async (req: Request, res: Response, next: NextFunction) => {
 
   // TODO: cleaner handling of potential Trie errors?
   try {
-    return res.send(addressTrie.search(req.params.query))
+    return res.send(addressTrie.search(req.params.query).slice(0, config.maxSearchResults))
   } catch (e) {
     next(e)
   }
