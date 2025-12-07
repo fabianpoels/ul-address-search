@@ -4,6 +4,7 @@
 }
 
 #search-input {
-  min-width: 350px;
+  width: 400px;
   height: 64px;
+  font-size: 1.8em;
 }
