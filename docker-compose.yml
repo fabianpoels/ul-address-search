@@ -14,6 +14,9 @@ services:
     environment:
       - NODE_ENV=development
     user: '${UID:-1000}:${GID:-1000}'
+    ports:
+      - '5173:5173' # Vite (frontend)
+      - '8080:8080' # Nodejs/express (api)
 
 volumes:
   node_modules:
