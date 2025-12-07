@@ -1,5 +1,5 @@
 import { config } from './src/config/applicationConfig'
-import logger from './src/config/logger'
+import { logger } from './src/config/logger'
 import { api } from './src/api'
 
 const exitHandler = () => {
@@ -13,7 +13,7 @@ const exitHandler = () => {
   }
 }
 
-const unexpectedErrorHandler = (error) => {
+const unexpectedErrorHandler = (error: Error) => {
   logger.error(error)
   exitHandler()
 }
@@ -23,7 +23,6 @@ let server
 try {
   server = api.listen(config.port, () => {
     logger.info(`APP RUNNING ON PORT ${config.port}`)
-    // logger.info(`APP ENV: ${config.env}`)
   })
 } catch (error) {
   unexpectedErrorHandler(error)

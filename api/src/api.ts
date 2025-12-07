@@ -5,8 +5,12 @@ import cors from 'cors'
 
 import routesV1 from './routes/v1/index'
 import { config } from './config/applicationConfig'
+import { httpLogger } from './config/logger'
 
 const api = express()
+
+// logging
+api.use(httpLogger)
 
 // security HTTP headers
 api.use(helmet())
@@ -17,6 +21,7 @@ api.use(express.json())
 // parse urlencoded request body
 api.use(express.urlencoded({ extended: true }))
 
+// compression
 api.use(compression())
 
 // enable cors
@@ -33,7 +38,6 @@ const corsOptions = {
     }
   },
 }
-
 const apiCors = cors(corsOptions)
 api.use(apiCors)
 
