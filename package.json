@@ -5,8 +5,14 @@
     "api",
     "frontend"
   ],
+  "scripts": {
+    "dev": "concurrently -n api,frontend -c blue,green \"yarn workspace api dev\" \"yarn workspace frontend dev\"",
+    "dev:api": "yarn workspace api dev",
+    "dev:frontend": "yarn workspace frontend dev"
+  },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "concurrently": "^9.2.1",
     "eslint": "^9.39.1",
     "prettier": "^3.7.3",
     "typescript": "^5.9.3"
