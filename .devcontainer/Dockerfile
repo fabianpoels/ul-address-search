@@ -9,10 +9,10 @@ RUN groupmod -g ${USER_GID} ${USERNAME} \
     && chown -R ${USER_UID}:${USER_GID} /home/${USERNAME}
 
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-RUN corepack enable && corepack prepare yarn@stable --activate
+RUN corepack enable
 
 WORKDIR /workspace
-    
-RUN chown -R ${USER_UID}:${USER_GID} /workspace
-    
+
+RUN  chown -R ${USER_UID}:${USER_GID} /workspace
+
 USER ${USERNAME}

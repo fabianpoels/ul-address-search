@@ -10,18 +10,10 @@ services:
         USER_GID: ${GID:-1000}
     volumes:
       - .:/workspace:cached
-      - node_modules:/workspace/node_modules
-      - api_node_modules:/workspace/api/node_modules
-      - frontend_node_modules:/workspace/frontend/node_modules
     command: sleep infinity
-    ports:
-      - '8080:8080' # API
-      - '5173:5173' # Vite
     environment:
       - NODE_ENV=development
     user: '${UID:-1000}:${GID:-1000}'
 
 volumes:
   node_modules:
-  api_node_modules:
-  frontend_node_modules:

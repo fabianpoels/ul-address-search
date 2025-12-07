@@ -17,5 +17,5 @@
     }
   },
   "forwardPorts": [5173, 8080],
-  "postCreateCommand": "yarn install && yarn config set --home enableTelemetry 0"
+  "postCreateCommand": "corepack prepare yarn@stable --activate && yarn install && yarn config set --home enableTelemetry 0"
 }
