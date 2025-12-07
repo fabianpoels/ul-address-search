@@ -22,7 +22,7 @@ The project is set up to be run with VScode and devcontainers, allowing for a sm
 #### 1. Clone the repository and open in VScode
 
 ```bash
-git clone git@github.com:fabianpoels/ul-address-search.git
+git clone https://github.com/fabianpoels/ul-address-search.git
 cd ul-address-search
 code .
 ```
