@@ -1,33 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, type ReactElement } from 'react'
 import './App.css'
+import LoadingSpinner from './components/LoadingSpinner'
+import { search } from './api/api'
+import type { Address } from '../../shared/types/address'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function App(): ReactElement {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [addresses, setAddresses] = useState<Array<Address>>()
+  async function handleInputChange(query: string) {
+    if (query.length < 3) return
+    setLoading(true)
+    try {
+      setAddresses(await search(query))
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div id="search-wrapper">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search address"
+          onChange={(e) => handleInputChange(e.target.value)}
+        />
+        <LoadingSpinner loading={loading} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
