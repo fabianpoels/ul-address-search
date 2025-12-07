@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from 'react'
+import { useRef, useState, type ReactElement } from 'react'
 import './App.css'
 import LoadingSpinner from './components/LoadingSpinner'
 import { search } from './api/api'
@@ -8,17 +8,29 @@ import AddressComponent from './components/AddressComponent'
 function App(): ReactElement {
   const [loading, setLoading] = useState<boolean>(false)
   const [addresses, setAddresses] = useState<Array<Address>>()
+  const abortControllerRef = useRef<AbortController | null>(null)
+
   async function handleInputChange(query: string) {
     if (query.length < 3) {
       setAddresses([])
       return
     }
     setLoading(true)
+
+    // cancel previous request if it exists
+    if (abortControllerRef.current) abortControllerRef.current.abort()
+
+    abortControllerRef.current = new AbortController()
+
     try {
-      setAddresses(await search(query))
+      setAddresses(await search(query, abortControllerRef.current.signal))
+      setLoading(false)
     } catch (e) {
+      // ignore the error if the request was aborted
+      if (e instanceof Error && e.name === 'AbortError') {
+        return
+      }
       console.error(e)
-    } finally {
       setLoading(false)
     }
   }
