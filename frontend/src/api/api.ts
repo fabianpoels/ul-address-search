@@ -1,4 +1,4 @@
-import { type Address } from '../../../shared/types/address'
+import type { Address } from '@ul-address-search/shared'
 import { config } from '../config/config'
 
 async function search(query: string, signal?: AbortSignal): Promise<Array<Address>> {

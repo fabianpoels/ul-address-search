@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import './AddressComponent.css'
-import type { Address } from '../../../shared/types/address'
+import type { Address } from '@ul-address-search/shared'
 
 function AddressComponent({
   onClick,
