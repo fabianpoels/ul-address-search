@@ -8,6 +8,9 @@
   height: 64px;
   font-size: 1.6em;
   border: 2px solid whitesmoke;
+  border-radius: 12px;
+  outline: none;
+  padding: 0 12px;
 }
 
 #search-input.valid-input {
@@ -42,4 +45,5 @@
   top: 70px;
   background-color: white;
   width: 508px;
+  border-radius: 12px;
 }

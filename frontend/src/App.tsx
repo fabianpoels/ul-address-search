@@ -14,6 +14,7 @@ function App(): ReactElement {
 
   async function handleInputChange(query: string) {
     setSearchQuery(query)
+    setSelectedAddress(null)
     if (query.length < 3) {
       setAddresses([])
       return
