@@ -1456,6 +1456,7 @@ __metadata:
     supertest: "npm:^7.1.4"
     trie-search: "npm:^2.2.0"
     tsx: "npm:^4.21.0"
+    typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
 

@@ -1,1 +1,1 @@
-export type { Address } from './types/address'
+export type { Address } from './types/address.ts'
