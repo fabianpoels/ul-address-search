@@ -6,7 +6,7 @@ interface ApplicationConfig {
 
 const config: ApplicationConfig = {
   port: parseInt(process.env.PORT || '8080'),
-  corsWhitelist: ['http://localhost:5173'],
+  corsWhitelist: [process.env.CORS_WHITELIST || 'http://localhost:5173'],
   maxSearchResults: 20,
 }
 
