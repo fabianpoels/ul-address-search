@@ -3,7 +3,8 @@
   "packageManager": "yarn@4.12.0",
   "workspaces": [
     "api",
-    "frontend"
+    "frontend",
+    "shared"
   ],
   "scripts": {
     "dev": "concurrently -n api,frontend -c blue,green \"yarn workspace api dev\" \"yarn workspace frontend dev\"",

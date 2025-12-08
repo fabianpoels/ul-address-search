@@ -2,7 +2,7 @@ import { useRef, useState, type ReactElement } from 'react'
 import './App.css'
 import LoadingSpinner from './components/LoadingSpinner'
 import { search } from './api/api'
-import type { Address } from '../../shared/types/address'
+import { type Address } from '@ul-address-search/shared'
 import AddressComponent from './components/AddressComponent'
 
 function App(): ReactElement {
@@ -69,10 +69,10 @@ function App(): ReactElement {
               X
             </div>
           )}
+          <div id="search-results">{addressComponents}</div>
         </div>
         <LoadingSpinner loading={loading} />
       </div>
-      <div id="search-results">{addressComponents}</div>
     </>
   )
 }

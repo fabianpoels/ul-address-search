@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { type Address } from '../../../shared/types/address'
+import { type Address } from '@ul-address-search/shared'
 import { join } from 'node:path'
 import TrieSearch from 'trie-search'
 
