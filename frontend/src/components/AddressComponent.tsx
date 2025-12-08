@@ -2,9 +2,15 @@ import type { ReactElement } from 'react'
 import './AddressComponent.css'
 import type { Address } from '../../../shared/types/address'
 
-function AddressComponent({ address }: { address: Address }): ReactElement {
+function AddressComponent({
+  onClick,
+  address,
+}: {
+  onClick?: React.MouseEventHandler<HTMLDivElement>
+  address: Address
+}): ReactElement {
   return (
-    <div className="address">
+    <div className="address" onClick={onClick}>
       <div className="street">
         {address.street}, {address.postNumber} {address.municipality}
       </div>

@@ -9,6 +9,7 @@ function App(): ReactElement {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [addresses, setAddresses] = useState<Array<Address>>()
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
 
   async function handleInputChange(query: string) {
@@ -43,14 +44,22 @@ function App(): ReactElement {
     setSearchQuery('')
     cancelSearch()
     setAddresses([])
+    setSelectedAddress(null)
   }
 
   function cancelSearch() {
     if (abortControllerRef.current) abortControllerRef.current.abort()
   }
 
+  function selectAddress(address: Address) {
+    setSearchQuery(`${address.street}, ${address.postNumber} ${address.municipality}`)
+    setSelectedAddress(address)
+    cancelSearch()
+    setAddresses([])
+  }
+
   const addressComponents = addresses?.map((address, idx) => (
-    <AddressComponent address={address} key={idx} />
+    <AddressComponent address={address} key={idx} onClick={() => selectAddress(address)} />
   ))
 
   return (
@@ -63,6 +72,7 @@ function App(): ReactElement {
             placeholder="Search address"
             value={searchQuery}
             onChange={(e) => handleInputChange(e.target.value)}
+            className={selectedAddress === null ? '' : 'valid-input'}
           />
           {showClear && (
             <div id="search-clear" onClick={clearInput}>

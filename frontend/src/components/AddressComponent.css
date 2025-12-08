@@ -4,6 +4,8 @@
   border: 1px solid rgba(211, 211, 211, 0.6);
   padding: 5px;
   flex-direction: column;
+  color: black;
+  cursor: pointer;
 }
 
 .street {

@@ -4,9 +4,14 @@
 }
 
 #search-input {
-  width: 400px;
+  width: 500px;
   height: 64px;
-  font-size: 1.8em;
+  font-size: 1.6em;
+  border: 2px solid whitesmoke;
+}
+
+#search-input.valid-input {
+  border: 2px solid green;
 }
 
 #input-wrapper {
@@ -30,4 +35,10 @@
 
 #search-clear:hover {
   background-color: rgba(211, 211, 211, 0.5);
+}
+
+#search-results {
+  position: absolute;
+  top: 70px;
+  background-color: white;
 }
