@@ -43,6 +43,6 @@ const apiCors = cors(corsOptions)
 api.use(apiCors)
 
 // API routes
-api.use('/api/v1', routesV1)
+api.use('/', routesV1)
 
 export { api }
