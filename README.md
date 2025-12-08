@@ -8,6 +8,12 @@ Tech stack (more details below):
 - Nodejs + Express
 - Typescript
 
+## Preview
+
+The application is deployed and available at [https://ul-address-search.onrender.com/](https://ul-address-search.onrender.com/)
+
+_Note: the application is running on a free tier, so initial response times can take up to 60 seconds._
+
 ## Development environment
 
 The project is set up to be run with VScode and devcontainers, allowing for a smooth developer experience.
@@ -83,22 +89,99 @@ To manage the project as a single repository but still have a separation of code
 
 I choose to use ExpressJS as I am somewhat familiar with it, but a pure Node application would work equally well for a minimal API.
 
+Implementing the suggested package `trie-search` went effortless and I was surprised by its performance.
+
+The API exposes a single endpoint:
+
+<details>
+ <summary><code>GET</code> <code><b>/search/:query</b></code> <code>Searches for addresses matching the query string</code></summary>
+
+##### Parameters
+
+> | name  | type     | data type            | description                                 |
+> | ----- | -------- | -------------------- | ------------------------------------------- |
+> | query | required | string (min 3 chars) | The search query to match addresses against |
+
+##### Responses
+
+> | http code | content-type       | response                  |
+> | --------- | ------------------ | ------------------------- |
+> | `200`     | `application/json` | Array of address objects  |
+> | `400`     | `application/json` | Error object with details |
+
+##### Example Response (200)
+
+```json
+[
+  {
+    "postNumber": 7042,
+    "city": "TRONDHEIM",
+    "street": "Testmanns gate",
+    "typeCode": 6,
+    "type": "Gate-/veg-adresse",
+    "district": "",
+    "municipalityNumber": 1601,
+    "municipality": "Trondheim",
+    "county": "Sør-Trøndelag"
+  }
+]
+```
+
+##### Example Response (400)
+
+```json
+{
+  "error": "Bad Request",
+  "message": "Search query must be at least 3 characters"
+}
+```
+
+</details>
+
 ### frontend
 
 **React**
 
+The frontend is built using React as specified. Without being able to rely on prebuilt components, providing a seamless UX is not a straightforward task. My main consideration when building the input field, was the interaction between the speed of the user input and the required network requests to the API. Instead of going for a 'debounce' approach, I opted to:
+
+- Fire a request on every keystroke
+- Cancel previous requests when a new request is triggered
+
+This allows for network requests without delays and also avoids parsing data that might no longer be relevant to the input.
+
 ### shared
+
+To enforce a consistent data model between the API and the frontend, I included a shared `Address` type.
 
 ## Testing
 
+The API includes both unit and integration tests. Out of convenience, I opted to use the provided dataset also for the unit tests. In a true production environment, one could probably expect that the actual data changes over time, so a separate dataset for testing would be better.
+
+To run the tests, there are multiple commands available:
+
+```bash
+# run all tests
+yarn workspace api test
+
+# run unit tests
+yarn workspace api test:unit
+
+# run integration tests
+yarn workspace api test:integration
+
+# run tests with hot code reloading enabled
+yarn workspace api test:watch
+```
+
+The tests are also run automatically on pushes to the main branch (with Github Actions).
+
 ## Deployment
 
-TODO:
+The whole project is also deployed and available at [https://ul-address-search.onrender.com/](https://ul-address-search.onrender.com/)
 
-- showing errors on frontend
-- deployment + logging + monitoring
-- cors
+The API and frontend are deployed separately, as they both require a specific setup:
 
-MISSING:
+- API: runs as a built nodejs server
+- frontend: is built and then deployed as a static website
 
-- debounce on search input
+Using [Render](https://render.com) for this was quite straightforward, as it integrates well with Github (thus there is no explicit CD configuration present in the project codebase).
