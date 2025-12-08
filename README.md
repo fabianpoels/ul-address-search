@@ -15,7 +15,8 @@ The project is set up to be run with VScode and devcontainers, allowing for a sm
 ### Requirements
 
 - Docker
-- VScode + Dev Containers extension
+- VScode
+- VScode Dev containers extension
 
 ### Setup
 
@@ -27,7 +28,7 @@ cd ul-address-search
 code .
 ```
 
-#### 2. Open the as a devcontainer
+#### 2. Open the project as a devcontainer
 
 ```
 VScode > Commands > Dev Containers: Rebuild and Reopen in container
@@ -35,7 +36,7 @@ VScode > Commands > Dev Containers: Rebuild and Reopen in container
 
 This will build the container and install the required dependencies
 
-#### 3. Run the application
+#### 3a. Run the application
 
 From inside VScode, open a terminal and run:
 
@@ -45,6 +46,14 @@ yarn dev
 
 This will start both the API and the frontend in development mode, supporting hot code reloading.
 The frontend will be available at [http://localhost:5173](http://localhost:5173)
+
+#### 3b. Run the application in debug mode
+
+Alternatively, the application can be started in debug mode. This allows for breakpoints to be used on the API-code.
+
+```
+VScode > Run and Debug > Debug API + Frontend
+```
 
 ### Troubleshooting
 
@@ -56,11 +65,40 @@ ports:
   - '8080:8080' # Nodejs/express (api)
 ```
 
+**IMPORTANT**: When changing the exposed port of the API, make sure to also update the API url for the frontend at `frontend/.env`
+
 ## Architecture
 
-The assignment only made mention of a single repository as a deliverable, so I went with a monorepo approach. To minimze the dependency on a specific operation system or locally installed software packages, I opted to set up a development environment using devcontainers. This allows the project to be set up for development.
+The assignment only made mention of a single repository as a deliverable, so I went with a monorepo approach. To minimze the dependency on a specific operation system or locally installed software packages, I opted to set up a development environment using devcontainers. This allows the project to be set up for development with minimal dependencies.
 
 To manage the project as a single repository but still have a separation of code and concerns, I choose to use Yarn workspaces for package management. The main components of the application are:
 
 - API: nodejs + Express (typescript)
 - frontend: React (typescript)
+- shared: Address type shared between API and frontend (typescript)
+
+### API
+
+**Nodejs / Express**
+
+I choose to use ExpressJS as I am somewhat familiar with it, but a pure Node application would work equally well for a minimal API.
+
+### frontend
+
+**React**
+
+### shared
+
+## Testing
+
+## Deployment
+
+TODO:
+
+- showing errors on frontend
+- deployment + logging + monitoring
+- cors
+
+MISSING:
+
+- debounce on search input
