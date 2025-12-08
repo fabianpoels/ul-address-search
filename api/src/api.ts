@@ -32,6 +32,12 @@ const corsOptions = {
       return cb(null, true)
     }
 
+    // if no origin => request from curl/postman/...
+    // allow for now, can also be blocked
+    if (!origin) {
+      return cb(null, true)
+    }
+
     // in production mode, respect the whitelist
     if (config.corsWhitelist.includes(origin)) {
       cb(null, true)

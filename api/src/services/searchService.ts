@@ -13,7 +13,7 @@ export const searchAddresses = (query: string, maxResults?: number): Address[] =
     throw new SearchValidationError('Search query must be at least 3 characters')
   }
 
-  let results = addressTrie.search(query)
+  let results = addressTrie.search(query) as Array<Address>
   if (maxResults) results = results.slice(0, maxResults)
 
   // https://www.npmjs.com/package/trie-search#release-notes--changelog

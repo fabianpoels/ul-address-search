@@ -1,6 +1,7 @@
 import { config } from './src/config/applicationConfig'
 import { logger } from './src/config/logger'
 import { api } from './src/api'
+import type { Server } from 'http'
 
 const exitHandler = () => {
   if (server) {
@@ -18,14 +19,14 @@ const unexpectedErrorHandler = (error: Error) => {
   exitHandler()
 }
 
-let server
+let server: Server | undefined
 
 try {
   server = api.listen(config.port, () => {
     logger.info(`APP RUNNING ON PORT ${config.port}`)
   })
 } catch (error) {
-  unexpectedErrorHandler(error)
+  unexpectedErrorHandler(error as Error)
 }
 
 process.on('uncaughtException', unexpectedErrorHandler)
