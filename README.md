@@ -1,11 +1,11 @@
 # UL Address Search
 
-A minimal application for searching addresses in a JSON file.
+A sleek, fast, type-safe address autocomplete.
 
 Tech stack (more details below):
 
 - React
-- Nodejs + Express
+- Node.js + Express.js
 - Typescript
 
 ## Preview
@@ -68,28 +68,28 @@ The devcontainer exposes ports `8080` and `5173`. Make sure they are not in use 
 ```yaml
 ports:
   - '5173:5173' # Vite (frontend)
-  - '8080:8080' # Nodejs/express (api)
+  - '8080:8080' # Node.js/Express.js (api)
 ```
 
 **IMPORTANT**: When changing the exposed port of the API, make sure to also update the API url for the frontend at `frontend/.env`
 
 ## Architecture
 
-The assignment only made mention of a single repository as a deliverable, so I went with a monorepo approach. To minimze the dependency on a specific operation system or locally installed software packages, I opted to set up a development environment using devcontainers. This allows the project to be set up for development with minimal dependencies.
+The assignment only made mention of a single repository as a deliverable, so I went with a monorepo approach. To minimize the dependency on a specific operating system or locally installed software packages, I opted to set up a development environment using devcontainers. This allows the project to be set up for development with minimal dependencies.
 
-To manage the project as a single repository but still have a separation of code and concerns, I choose to use Yarn workspaces for package management. The main components of the application are:
+To manage the project as a single repository but still have a separation of code and concerns, I chose to use Yarn workspaces for package management. The main components of the application are:
 
-- API: nodejs + Express (typescript)
+- API: Node.js + Express.js (typescript)
 - frontend: React (typescript)
 - shared: Address type shared between API and frontend (typescript)
 
 ### API
 
-**Nodejs / Express**
+**Node.js / Express.js**
 
-I choose to use ExpressJS as I am somewhat familiar with it, but a pure Node application would work equally well for a minimal API.
+I chose to use Express.js as I am somewhat familiar with it, but a pure Node.js application would work equally well for a minimal API.
 
-Implementing the suggested package `trie-search` went effortless and I was surprised by its performance.
+Implementing `trie-search` went effortless and I was surprised by its performance.
 
 The API exposes a single endpoint:
 
@@ -151,11 +151,11 @@ This allows for network requests without delays and also avoids parsing data tha
 
 ### shared
 
-To enforce a consistent data model between the API and the frontend, I included a shared `Address` type.
+To enforce a consistent data model between the API and the frontend, I included a shared `Address` type. This approach avoids code duplication and ensures type safety across the API boundary. If the backend data structure changes, TypeScript will immediately flag any incompatibilities in the frontend at compile time rather than discovering them at runtime.
 
 ## Testing
 
-The API includes both unit and integration tests. Out of convenience, I opted to use the provided dataset also for the unit tests. In a true production environment, one could probably expect that the actual data changes over time, so a separate dataset for testing would be better.
+The API includes both unit and integration tests. For convenience, I opted to use the provided dataset for the unit tests. In a true production environment, one would expect that the actual data changes over time (or lives in a database), so a separate dataset for testing would be better.
 
 To run the tests, there are multiple commands available:
 
@@ -173,15 +173,15 @@ yarn workspace api test:integration
 yarn workspace api test:watch
 ```
 
-The tests are also run automatically on pushes to the main branch (with Github Actions).
+The tests are also run automatically on pushes to the main branch (with GitHub Actions).
 
 ## Deployment
 
-The whole project is also deployed and available at [https://ul-address-search.onrender.com/](https://ul-address-search.onrender.com/)
+The application deployed and available at [https://ul-address-search.onrender.com/](https://ul-address-search.onrender.com/)
 
 The API and frontend are deployed separately, as they both require a specific setup:
 
-- API: runs as a built nodejs server
+- API: runs as a built Node.js server
 - frontend: is built and then deployed as a static website
 
-Using [Render](https://render.com) for this was quite straightforward, as it integrates well with Github (thus there is no explicit CD configuration present in the project codebase).
+Using [Render](https://render.com) for this was quite straightforward, as it integrates well with GitHub (thus there is no explicit CD configuration present in the project codebase).
