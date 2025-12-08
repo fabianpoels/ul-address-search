@@ -13,22 +13,21 @@
       "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
     },
     {
-      "name": "Debug Frontend",
-      "type": "chrome",
+      "name": "Start Frontend Server",
+      "type": "node",
       "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/frontend",
-      "sourceMapPathOverrides": {
-        "webpack:///./~/*": "${webRoot}/node_modules/*",
-        "webpack:///./*": "${webRoot}/*",
-        "webpack:///*": "*"
-      }
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["workspace", "frontend", "dev"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
     }
   ],
   "compounds": [
     {
       "name": "Debug API + Frontend",
-      "configurations": ["Debug API", "Debug Frontend"],
+      "configurations": ["Debug API", "Start Frontend Server"],
       "stopAll": true
     }
   ]
