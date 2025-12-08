@@ -6,11 +6,13 @@ import type { Address } from '../../shared/types/address'
 import AddressComponent from './components/AddressComponent'
 
 function App(): ReactElement {
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [addresses, setAddresses] = useState<Array<Address>>()
   const abortControllerRef = useRef<AbortController | null>(null)
 
   async function handleInputChange(query: string) {
+    setSearchQuery(query)
     if (query.length < 3) {
       setAddresses([])
       return
@@ -18,7 +20,7 @@ function App(): ReactElement {
     setLoading(true)
 
     // cancel previous request if it exists
-    if (abortControllerRef.current) abortControllerRef.current.abort()
+    cancelSearch()
 
     abortControllerRef.current = new AbortController()
 
@@ -35,6 +37,18 @@ function App(): ReactElement {
     }
   }
 
+  const showClear: boolean = searchQuery.length > 0
+
+  function clearInput(): void {
+    setSearchQuery('')
+    cancelSearch()
+    setAddresses([])
+  }
+
+  function cancelSearch() {
+    if (abortControllerRef.current) abortControllerRef.current.abort()
+  }
+
   const addressComponents = addresses?.map((address, idx) => (
     <AddressComponent address={address} key={idx} />
   ))
@@ -42,12 +56,20 @@ function App(): ReactElement {
   return (
     <>
       <div id="search-wrapper">
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search address"
-          onChange={(e) => handleInputChange(e.target.value)}
-        />
+        <div id="input-wrapper">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search address"
+            value={searchQuery}
+            onChange={(e) => handleInputChange(e.target.value)}
+          />
+          {showClear && (
+            <div id="search-clear" onClick={clearInput}>
+              X
+            </div>
+          )}
+        </div>
         <LoadingSpinner loading={loading} />
       </div>
       <div id="search-results">{addressComponents}</div>

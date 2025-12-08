@@ -8,3 +8,26 @@
   height: 64px;
   font-size: 1.8em;
 }
+
+#input-wrapper {
+  position: relative;
+}
+
+#search-clear {
+  position: absolute;
+  right: 5px;
+  top: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background-color: rgba(211, 211, 211, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#search-clear:hover {
+  background-color: rgba(211, 211, 211, 0.5);
+}
