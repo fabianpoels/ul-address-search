@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import helmet from 'helmet'
 import compression from 'compression'
 import cors from 'cors'
@@ -44,5 +44,13 @@ api.use(apiCors)
 
 // API routes
 api.use('/', routesV1)
+
+// 404 handler, otherwise the default express 404 page is returned
+api.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: 'The requested resource was not found',
+  })
+})
 
 export { api }
