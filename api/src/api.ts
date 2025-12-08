@@ -27,16 +27,17 @@ api.use(compression())
 // enable cors
 const corsOptions = {
   origin: (origin: string | undefined, cb: (err: Error | null, allow?: boolean) => void) => {
-    return cb(null, true)
-    // // Allow requests with no origin
-    // // TODO: rework, depending on env
-    // if (!origin) return cb(null, true)
+    // allow all when in dev mode
+    if (process.env.NODE_ENV === 'development') {
+      return cb(null, true)
+    }
 
-    // if (config.corsWhitelist.includes(origin)) {
-    //   cb(null, true)
-    // } else {
-    //   cb(new Error('Not allowed by CORS'))
-    // }
+    // in production mode, respect the whitelist
+    if (config.corsWhitelist.includes(origin)) {
+      cb(null, true)
+    } else {
+      cb(new Error('Not allowed by CORS'))
+    }
   },
 }
 const apiCors = cors(corsOptions)
