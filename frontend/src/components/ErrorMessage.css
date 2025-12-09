@@ -1,0 +1,33 @@
+.error-message {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: auto;
+  background-color: rgba(165, 42, 42, 0.95);
+  border: 2px solid rgba(255, 0, 0, 0.95);
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.error-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error-name {
+  font-size: 100%;
+  font-weight: bold;
+}
+
+.error-dismiss {
+  font-size: 90%;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error-content {
+  margin-top: 10px;
+  font-size: 95%;
+}

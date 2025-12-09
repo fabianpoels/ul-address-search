@@ -4,12 +4,14 @@ import LoadingSpinner from './components/LoadingSpinner'
 import { search } from './api/api'
 import { type Address } from '@ul-address-search/shared'
 import AddressComponent from './components/AddressComponent'
+import ErrorMessage from './components/ErrorMessage'
 
 function App(): ReactElement {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [addresses, setAddresses] = useState<Array<Address>>()
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null)
+  const [errors, setErrors] = useState<Array<Error>>([])
   const abortControllerRef = useRef<AbortController | null>(null)
 
   async function handleInputChange(query: string) {
@@ -34,6 +36,9 @@ function App(): ReactElement {
       if (e instanceof Error && e.name === 'AbortError') {
         return
       }
+
+      const error = e instanceof Error ? e : new Error(String(e))
+      setErrors([...errors, error])
       console.error(e)
       setLoading(false)
     }
@@ -59,12 +64,21 @@ function App(): ReactElement {
     setAddresses([])
   }
 
+  function removeError(index: number) {
+    setErrors(errors.filter((_, i) => i !== index))
+  }
+
   const addressComponents = addresses?.map((address, idx) => (
     <AddressComponent address={address} key={idx} onClick={() => selectAddress(address)} />
   ))
 
+  const errorMessages = errors.map((error, idx) => (
+    <ErrorMessage error={error} key={idx} remove={() => removeError(idx)} />
+  ))
+
   return (
     <>
+      <div id="error-messages">{errorMessages}</div>
       <div id="search-wrapper">
         <div id="input-wrapper">
           <input
