@@ -49,6 +49,7 @@ function App(): ReactElement {
   function clearInput(): void {
     setSearchQuery('')
     cancelSearch()
+    setLoading(false)
     setAddresses([])
     setSelectedAddress(null)
   }
@@ -61,6 +62,7 @@ function App(): ReactElement {
     setSearchQuery(`${address.street}, ${address.postNumber} ${address.municipality}`)
     setSelectedAddress(address)
     cancelSearch()
+    setLoading(false)
     setAddresses([])
   }
 
