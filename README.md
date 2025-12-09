@@ -184,4 +184,4 @@ The API and frontend are deployed separately, as they both require a specific se
 - API: runs as a built Node.js server
 - frontend: is built and then deployed as a static website
 
-Using [Render](https://render.com) for this was quite straightforward, as it integrates well with GitHub (thus there is no explicit CD configuration present in the project codebase).
+Using [Render](https://render.com) for this was quite straightforward, as it integrates well with GitHub (thus there is no explicit CD configuration present in the project codebase). Even the free tier offers access to the logs and some basic monitoring. For a true production-ready application, more extensive monitoring and alerting would be beneficial.
